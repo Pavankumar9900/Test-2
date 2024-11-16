@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raj & Priya's Adorable Union</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;700&display=swap');
+
+        :root {
+            --primary-color: #ffd1dc;
+            --secondary-color: #ffb6c1;
+            --accent-color: #ff69b4;
+            --text-color: #4a0e1c;
+            --background-color: #fff0f5;
+            --transition: 0.3s ease-in-out;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .couple-names {
+            font-family: 'Pacifico', cursive;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .name {
+            display: inline-block;
+            position: relative;
+        }
+
+        .name::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .name:hover::after {
+            transform: scaleX(1);
+        }
+
+        .ampersand {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin: 0 1rem;
+        }
+
+        .wedding-date {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .countdown-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 1rem;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-item span:first-child {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            font-family: 'Pacifico', cursive;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            z-index: -1;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .floating-hearts::before,
+        .floating-hearts::after {
+            content: '♥';
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.5);
+            animation: float 20s infinite alternate;
+        }
+
+        .floating-hearts::before {
+            top: 10%;
+            left: 10%;
+        }
+
+        .floating-hearts::after {
+            bottom: 10%;
+            right: 10%;
+            animation-duration: 15s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(50px, 50px) rotate(360deg);
+            }
+        }
+
+        .story,
+        .events,
+        .gallery,
+        .rsvp {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        h2 {
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+            font-size: 3rem;
+        }
+
+        .story-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s;
+        }
+
+        .timeline-item.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-content {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: calc(50% - 30px);
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-content::before {
+            content: '♥';
+            position: absolute;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            left: -45px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            right: -45px;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .event-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            transition: transform var(--transition);
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 1rem;
+            height: 90vh;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item p {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 0.5rem;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover p {
+            transform: translateY(0);
+        }
+
+        .gallery-item-1 {
+            grid-column: 1 / 3;
+            grid-row: 1 / 4;
+        }
+
+        .gallery-item-2 {
+            grid-column: 3 / 5;
+            grid-row: 1 / 3;
+        }
+
+        .gallery-item-3 {
+            grid-column: 5 / 7;
+            grid-row: 1 / 4;
+        }
+
+        .gallery-item-4 {
+            grid-column: 1 / 3;
+            grid-row: 4 / 7;
+        }
+
+        .gallery-item-5 {
+            grid-column: 3 / 5;
+            grid-row: 3 / 7;
+        }
+
+        .gallery-item-6 {
+            grid-column: 5 / 7;
+            grid-row: 4 / 7;
+        }
+
+        .rsvp-form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            font-size: 1rem;
+            border: none;
+            background-color: transparent;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--secondary-color);
+            transition: border-color var(--transition);
+        }
+
+        .form-group label {
+            position: absolute;
+            top: 0.8rem;
+            left: 0;
+            pointer-events: none;
+            transition: all var(--transition);
+        }
+
+        .form-group input:focus~label,
+        .form-group input:valid~label,
+        .form-group select:focus~label,
+        .form-group select:valid~label {
+            top: -1.2rem;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        .form-border {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width var(--transition);
+        }
+
+        .form-group input:focus~.form-border,
+        .form-group select:focus~.form-border {
+            width: 100%;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .submit-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+            transition: transform var(--transition);
+        }
+
+        .submit-btn:hover svg {
+            transform: translateX(5px);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .couple-names {
+                font-size: 3rem;
+            }
+
+            .wedding-date {
+                font-size: 1.2rem;
+            }
+
+            .countdown {
+                flex-wrap: wrap;
+            }
+
+            .countdown-item {
+                min-width: 80px;
+                margin-bottom: 1rem;
+            }
+
+            .countdown-item span:first-child {
+                font-size: 1.5rem;
+            }
+
+            .story-timeline::before {
+                left: 0;
+            }
+
+            .timeline-content {
+                width: 100%;
+                margin-left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                margin-left: 20px;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                left: -35px;
+                right: auto;
+            }
+
+            .event-card {
+                width: 100%;
+            }
+
+            .gallery-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(6, 1fr);
+                height: auto;
+            }
+
+            .gallery-item {
+                grid-column: 1 / 2 !important;
+                grid-row: auto !important;
+                height: 50vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .couple-names {
+                font-size: 2.5rem;
+            }
+
+            .wedding-date {
+                font-size: 1rem;
+            }
+
+            .countdown-item {
+                min-width: 60px;
+                padding: 0.5rem;
+            }
+
+            .countdown-item span:first-child {
+                font-size: 1.2rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .gallery-item {
+                height: 40vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="couple-names">
+                    <span class="name">Raj</span>
+                    <span class="ampersand">&</span>
+                    <span class="name">Priya</span>
+                </h1>
+                <p class="wedding-date">November 15, 2024</p>
+                <div id="countdown" class="countdown"></div>
+            </div>
+            <div class="hero-background">
+                <div class="floating-hearts"></div>
+            </div>
+        </section>
+
+        <section id="story" class="story">
+            <h2>Our Love Story</h2>
+            <div class="story-timeline"></div>
+        </section>
+
+        <section id="events" class="events">
+            <h2>Celebration Events</h2>
+            <div class="event-cards"></div>
+        </section>
+
+        <section id="gallery" class="gallery">
+            <h2>Moments of Joy</h2>
+            <div class="gallery-container">
+                <div class="gallery-item gallery-item-1">
+                    <img src="1.webp" alt="Our First Selfie" loading="lazy">
+                    <p>Our First Selfie</p>
+                </div>
+                <div class="gallery-item gallery-item-2">
+                    <img src="2.jpg" alt="Baking Adventures" loading="lazy">
+                    <p>Baking Adventures</p>
+                </div>
+                <div class="gallery-item gallery-item-3">
+                    <img src="3.jpg" alt="Puppy Playtime" loading="lazy">
+                    <p>Puppy Playtime</p>
+                </div>
+                <div class="gallery-item gallery-item-4">
+                    <img src="4.jpg" alt="Cozy Movie Night" loading="lazy">
+                    <p>Cozy Movie Night</p>
+                </div>
+                <div class="gallery-item gallery-item-5">
+                    <img src="5.jpg" alt="Beach Day Fun" loading="lazy">
+                    <p>Beach Day Fun</p>
+                </div>
+                <div class="gallery-item gallery-item-6">
+                    <img src="6.jpg" alt="The Proposal" loading="lazy">
+                    <p>The Proposal</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="rsvp" class="rsvp">
+            <h2>Join Our Celebration</h2>
+            <form id="rsvp-form" class="rsvp-form">
+                <div class="form-group">
+                    <input type="text" id="name" required>
+                    <label for="name">Your Name</label>
+                    <div class="form-border"></div>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" required>
+                    <label for="email">Your Email</label>
+                    <div class="form-border"></div>
+                </div>
+                <div class="form-group">
+                    <select id="attending" required>
+                        <option value="" disabled selected>Will you attend?</option>
+                        <option value="yes">Joyfully Accepts</option>
+                        <option value="no">Regretfully Declines</option>
+                    </select>
+                    <div class="form-border"></div>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <span>Send RSVP</span>
+                    <svg viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path
+                            d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z" />
+                    </svg>
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Raj & Priya's Adorable Union. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Wedding data (easily customizable)
+        const weddingData = {
+            couple: {
+                name1: "Raj",
+                name2: "Priya"
+            },
+            date: "2024-11-15T18:00:00",
+            events: [
+                {
+                    name: "Mehendi Ceremony",
+                    date: "2024-11-13",
+                    time: "16:00",
+                    location: "Lotus Garden"
+                },
+                {
+                    name: "Sangeet Night",
+                    date: "2024-11-14",
+                    time: "19:00",
+                    location: "Royal Ballroom"
+                },
+                {
+                    name: "Wedding Ceremony",
+                    date: "2024-11-15",
+                    time: "18:00",
+                    location: "Grand Pavilion"
+                },
+                {
+                    name: "Reception",
+                    date: "2024-11-16",
+                    time: "20:00",
+                    location: "Starlight Terrace"
+                }
+            ],
+            story: [
+                { date: "2018", title: "A Cute Encounter", description: "We bumped into each other at a local coffee shop, spilling our lattes and our hearts." },
+                { date: "2019", title: "Puppy Love", description: "Our first date at the dog park, where we realized we both had a soft spot for furry friends." },
+                { date: "2020", title: "Cozy Quarantine", description: "We decided to quarantine together and discovered our love for baking and Netflix marathons." },
+                { date: "2023", title: "A Sweet Proposal", description: "Raj proposed with a ring hidden in a cupcake during our homemade dessert night." }
+            ]
+        };
+
+        // Floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '♥';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.querySelector('.floating-hearts').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const weddingDate = new Date(weddingData.date).getTime();
+            const timeLeft = weddingDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = `
+        <div class="countdown-item"><span>${days}</span><span>Days</span></div>
+        <div class="countdown-item"><span>${hours}</span><span>Hours</span></div>
+        <div class="countdown-item"><span>${minutes}</span><span>Minutes</span></div>
+        <div class="countdown-item"><span>${seconds}</span><span>Seconds</span></div>
+    `;
+        }
+
+        // Populate love story timeline
+        function populateStory() {
+            const timeline = document.querySelector('.story-timeline');
+            weddingData.story.forEach((item, index) => {
+                const timelineItem = document.createElement('div');
+                timelineItem.classList.add('timeline-item');
+                timelineItem.innerHTML = `
+            <div class="timeline-content">
+                <h3 class="timeline-date">${item.date}</h3>
+                <h4>${item.title}</h4>
+                <p>${item.description}</p>
+            </div>
+        `;
+                timeline.appendChild(timelineItem);
+
+                // Add animation on scroll
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('show');
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(timelineItem);
+            });
+        }
+
+        // Populate event details
+        function populateEvents() {
+            const eventCards = document.querySelector('.event-cards');
+            weddingData.events.forEach((event, index) => {
+                const eventCard = document.createElement('div');
+                eventCard.classList.add('event-card');
+                eventCard.innerHTML = `
+            <h3>${event.name}</h3>
+            <p><strong>Date:</strong> ${event.date}</p>
+            <p><strong>Time:</strong> ${event.time}</p>
+            <p><strong>Location:</strong> ${event.location}</p>
+        `;
+                eventCards.appendChild(eventCard);
+
+                // Add animation on scroll
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.animation = `fadeInUp 0.5s ease-out ${index * 0.1}s forwards`;
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                observer.observe(eventCard);
+            });
+        }
+
+        // RSVP form submission
+        document.getElementById('rsvp-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const attending = document.getElementById('attending').value;
+
+            // Here you would typically send this data to a server
+            console.log(`RSVP: ${name}, ${email}, Attending: ${attending}`);
+            alert('Thank you for your RSVP! We can\'t wait to celebrate with you!');
+            this.reset();
+        });
+
+        // Smooth reveal animation for sections
+        const revealSections = document.querySelectorAll('section');
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -100px 0px"
+        };
+
+        const revealSection = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        };
+
+        const sectionObserver = new IntersectionObserver(revealSection, revealOptions);
+
+        revealSections.forEach(section => {
+            sectionObserver.observe(section);
+            section.classList.add('section--hidden');
+        });
+
+        // Initialize the page
+        function init() {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            populateStory();
+            populateEvents();
+        }
+
+        // Run initialization when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>
